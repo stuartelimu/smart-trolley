@@ -20,11 +20,7 @@
     />
 
     <!-- Bootstrap core CSS -->
-    <link
-      href="css/bootstrap.min.css"
-      rel="stylesheet"
-      
-    />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
 
     <!-- Favicons -->
     <link
@@ -58,6 +54,34 @@
     <meta name="theme-color" content="#563d7c" />
 
     <style>
+      .qrcode-text-btn {
+        display: inline-block;
+        height: 1em;
+        width: 1em;
+        background: green;
+        cursor: pointer;
+      }
+
+      .qrcode-text-btn > input[type="file"] {
+        position: absolute;
+        overflow: hidden;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+      }
+
+      .qrcode-text {
+        padding-right: 1.7em;
+        margin-right: 0;
+        vertical-align: middle;
+      }
+
+      .qrcode-text + .qrcode-text-btn {
+        width: 1.7em;
+        margin-left: -1.7em;
+        vertical-align: middle;
+      }
+
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
@@ -99,6 +123,17 @@
         <p class="lead">
           <a href="#" class="btn btn-lg btn-secondary">Learn more</a>
         </p>
+
+        <input type="text" class="qrcode-text" /><label class="qrcode-text-btn">
+          <input
+            type="file"
+            accept="image/*"
+            capture="environment"
+            onclick="return showQRIntro();"
+            onchange="openQRCamera(this);"
+            tabindex="-1"
+          />
+        </label>
       </main>
 
       <footer class="mastfoot mt-auto">
@@ -111,5 +146,31 @@
         </div>
       </footer>
     </div>
+
+    <script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js"></script>
+
+    <script>
+      function openQRCamera(node) {
+        var reader = new FileReader();
+        reader.onload = function() {
+          node.value = "";
+          qrcode.callback = function(res) {
+            if (res instanceof Error) {
+              alert(
+                "No QR code found. Please make sure the QR code is within the camera's frame and try again."
+              );
+            } else {
+              node.parentNode.previousElementSibling.value = res;
+            }
+          };
+          qrcode.decode(reader.result);
+        };
+        reader.readAsDataURL(node.files[0]);
+      }
+
+      function showQRIntro() {
+        return confirm("Use your camera to take a picture of a QR code.");
+      }
+    </script>
   </body>
 </html>
