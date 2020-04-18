@@ -12,7 +12,7 @@
       content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
     />
     <meta name="generator" content="Jekyll v3.8.6" />
-    <title>Cover Template · Bootstrap</title>
+    <title>Smart Trolley</title>
 
     <link
       rel="canonical"
@@ -54,11 +54,39 @@
     <meta name="theme-color" content="#563d7c" />
 
     <style>
+      .qr-code-wrapper {
+        position: relative;
+        width: 200px;
+        height: 200px;
+      }
+
+      .qr-code-btn {
+        border: 2px solid gray;
+        background-color: white;
+        background: url(img/qr-code.png) center no-repeat;
+        background-size: contain;
+        height: 100%;
+        width: 100%;
+        padding: 8px 20px;
+        border-radius: 8px;
+      }
+
+      .qr-code-wrapper input[type=file] {
+        font-size: 100px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+      }
+
       .qrcode-text-btn {
         display: inline-block;
+        position: relative;
         height: 1em;
         width: 1em;
-        background: green;
+        background: url(img/qr-code.png) 50% 50% no-repeat;
         cursor: pointer;
       }
 
@@ -108,23 +136,21 @@
           <nav class="nav nav-masthead justify-content-center">
             <a class="nav-link active" href="#">Home</a>
             <a class="nav-link" href="#">Features</a>
-            <a class="nav-link" href="checkout.html">Cart</a>
+            <a class="nav-link" href="cart.html">Cart</a>
           </nav>
         </div>
       </header>
 
       <main role="main" class="inner cover">
-        <h1 class="cover-heading">Cover your page.</h1>
+        <h1 class="cover-heading">Scan QR Code.</h1>
         <p class="lead">
-          Cover is a one-page template for building simple and beautiful home
-          pages. Download, edit the text, and add your own fullscreen background
-          photo to make it your own.
-        </p>
-        <p class="lead">
-          <a href="#" class="btn btn-lg btn-secondary">Learn more</a>
+          Use your camera to take a picture of a QR code of the product.
         </p>
 
-        <input type="text" class="qrcode-text" /><label class="qrcode-text-btn">
+        <input type="text" class="qrcode-text" />
+        
+        <div class="qr-code-wrapper mt-2  mx-auto">
+          <div class="qr-code-btn"></div>
           <input
             type="file"
             accept="image/*"
@@ -133,7 +159,11 @@
             onchange="openQRCamera(this);"
             tabindex="-1"
           />
-        </label>
+        </div>
+
+        <p class="lead mt-3">
+          <a href="#" class="btn btn-lg btn-secondary">Learn more</a>
+        </p>
       </main>
 
       <footer class="mastfoot mt-auto">
